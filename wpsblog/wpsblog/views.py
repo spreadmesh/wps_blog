@@ -2,10 +2,15 @@ import json
 import requests
 
 from django.http.response import HttpResponse
+from django.conf import settings
 
 
 def home(request):
-    return HttpResponse("<h1>hello world</h1><p>This is home page.</p>")
+    with open(settings.BASE_DIR + "/wpsblog/templates/home.html", "r") as template:
+        content = template.read()
+        content = content.replace("## site_name ##", "WPS BLOG")
+
+    return HttpResponse(content)
 
 
 def room(request, room_id):
@@ -24,24 +29,17 @@ def news(request):
     news_dict = json.loads(response.text)
     news_list = news_dict.get("news")
 
-    form_html = """
-        <form method="GET" action="/news/">
-           <input type="text" name="search">
-           <input type="submit" value="검색">
-        </form>
-    """
-
     if search:
         news_list = list(filter(
             lambda news: search in news.get('title'),
             news_list,
         ))
 
-    content = "<h1>News</h1>" +\
-        "<p>This is news page.</p>" +\
-        form_html +\
-        "<p>{count}개의 영화 뉴스 정보가 있습니다.</p>".format(count=len(news_list)) +\
-        "".join([
+    with open(settings.BASE_DIR + "/wpsblog/templates/news.html", "r") as template:
+        content = template.read()
+        
+        count = len(news_list)
+        news_content = "".join([
             "<h2>{title}</h2><img src={image_src}><p>{content}</p>".format(
                 title=news.get('title'),
                 image_src=news.get('image'),
@@ -51,6 +49,9 @@ def news(request):
             in news_list
         ])
 
-    return HttpResponse(
-        content,
-    )
+        content = content.replace("## count ##", str(count))
+        content = content.replace("## news_content ##", news_content)
+        
+        return HttpResponse(
+            content,
+        )
