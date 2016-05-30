@@ -2,7 +2,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 from wpsblog.views import *
-from wpsblog.policy_urlpatterns import policy_urlpatterns
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -16,5 +16,5 @@ urlpatterns = [
     # url(r'^policy/privacy/$', privacy, name="privacy"),
     # url(r'^policy/disclaimer/$', disclaimer, name="disclaimer"),
     
-    url(r'^policy/', include(policy_urlpatterns, namespace="policy")),
+    url(r'^policy/', include("wpsblog.urls.policy", namespace="policy")),
 ]
