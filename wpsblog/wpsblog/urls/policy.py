@@ -8,4 +8,3 @@ urlpatterns = [
         url(r'privacy/$', privacy, name="privacy"),
         url(r'disclaimer/$', disclaimer, name="disclaimer"),
     ]
-
