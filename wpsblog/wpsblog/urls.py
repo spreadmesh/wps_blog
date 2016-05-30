@@ -3,6 +3,11 @@ from django.contrib import admin
 
 from wpsblog.views import *
 
+policy_urlpatterns = [
+        url(r'terms/$', terms, name="terms"),
+        url(r'privacy/$', privacy, name="privacy"),
+        url(r'disclaimer/$', disclaimer, name="disclaimer"),
+    ]
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -16,9 +21,5 @@ urlpatterns = [
     # url(r'^policy/privacy/$', privacy, name="privacy"),
     # url(r'^policy/disclaimer/$', disclaimer, name="disclaimer"),
     
-    url(r'^policy/', include([
-        url(r'terms/$', terms, name="terms"),
-        url(r'privacy/$', privacy, name="privacy"),
-        url(r'disclaimer/$', disclaimer, name="disclaimer"),
-    ], namespace="policy")),
+    url(r'^policy/', include(policy_urlpatterns, namespace="policy")),
 ]
