@@ -17,4 +17,7 @@ urlpatterns = [
     # url(r'^policy/disclaimer/$', disclaimer, name="disclaimer"),
 
     url(r'^policy/', include("wpsblog.urls.policy", namespace="policy")),
+
+    url(r'^posts/$', list, name="post-list"),
+    url(r'^posts/(?P<post_id>\d+)/$', detail, name="post-detail"),
 ]
