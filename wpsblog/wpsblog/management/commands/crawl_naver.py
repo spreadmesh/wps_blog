@@ -37,7 +37,7 @@ class Command(BaseCommand):
 
             thumbnail_image_element = post_element.select_one(".sh_blog_thumbnail")
             thumbnail_image_url = thumbnail_image_element.get("src")
-            
+
             NaverPost.objects.create(
                 title=title,
                 original_url=url,
