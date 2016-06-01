@@ -19,6 +19,14 @@ class Post(models.Model):
             }
         )
 
+    def get_update_url(self):
+        return reserve(
+            "posts:update",
+            kwarges={
+                "post_id": self.id,
+            },
+        )
+
 
 class NaverPost(models.Model):
 
