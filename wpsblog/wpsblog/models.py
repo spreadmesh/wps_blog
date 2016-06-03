@@ -20,9 +20,9 @@ class Post(models.Model):
         )
 
     def get_update_url(self):
-        return reserve(
+        return reverse(
             "posts:update",
-            kwarges={
+            kwargs={
                 "post_id": self.id,
             },
         )
