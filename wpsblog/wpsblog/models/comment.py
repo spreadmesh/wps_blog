@@ -3,9 +3,9 @@ from django.db import models
 
 class Comment(models.Model):
 
-    post = model.ForeignKey("Post")
+    post = models.ForeignKey("Post")
 
-    content = model.TextField()
+    content = models.TextField()
 
     def __str__(self):
         return self.content
